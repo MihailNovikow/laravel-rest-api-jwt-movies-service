@@ -1,2 +1,1 @@
-# laravel-rest-api-jwt-movies-service
- laravel rest api with jwt auth and movies service
+Laravel 9 with JWT Auth and movies service
