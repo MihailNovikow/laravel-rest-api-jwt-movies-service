@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Http\Requests\UserRequest;
+//use PHPOpenSourceSaver\Auth\Facades\JWTFactory;
+//use PHPOpenSourceSaver\Auth\Facades\Auth;
 
 class AuthController extends Controller
 {
-
+//use Auth;
+//use JWTFactory;
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('Auth:api');//('Auth:api', ['except' => ['login','register']]);
     }
 
     public function login(Request $request)
@@ -77,13 +81,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function me()
-    {
-        return response()->json([
-            'status' => 'success',
-            'user' => Auth::user(),
-        ]);
-    }
 
     public function refresh()
     {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Aircraft;
+use App\Models\FavoriteMovie;
 
 class Movie extends Model
 {
@@ -12,20 +13,13 @@ class Movie extends Model
     protected $table = 'movies';
 
     protected $fillable = [
-   'aircraft_id',
-   'airport_id1',
-   'airport_id2',
-   'takeoff',
-   'landing',
-   'cargo_load',
-   'cargo_offload'
+   'name',
+   'budgetInMillions',
+   'favorite',
     ];
-public function aircraft()
+public function favoriteMovie()
     {
-        return $this->hasOne(Aircraft::class);
+        return $this->hasMany(FavoriteMovie::class);
     }
-    public function airport()
-    {
-        return $this->hasOne(Airport::class);
-    }
+
 }
