@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('budgetInMillions');
-            $table->boolean('favourites');
+            $table->string('name')->nullable();
+            $table->integer('budgetInMillions')->nullable();
+            $table->tinyInteger('favorite')->nullable();
    $table->timestamps();
         });
     }

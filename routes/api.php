@@ -16,18 +16,17 @@ Route::controller(AuthController::class)->group(function () {
 
 });
 
-
+//Route::group(['middleware' => 'auth:api'], function($router) {
     Route::controller(AuthUserController::class)->group(function () {
     Route::get('profile/{user_id}', 'showAuthUser');
     Route::patch('profile/{user_id}/update', 'updateAuthUser');
     Route::delete('profile/{user_id}/delete', 'deleteAuthUser');
-
+//});
 });
 //Вывод всех сохраненных в базе фильмов с постраничной навигацией
 Route::get('/movies', [MovieController::class, 'getMoviesInDB']);
 
-//тестирование api
-Route::get('/savemovie', [MovieController::class, 'getMovies']);
+Route::post('/savemovie', [MovieController::class, 'saveMovies']);
 // добавление фильмов в избранное.
 Route::post('/add_movie_to_favorites', [FavoriteMovieController::class, 'store']);
 //удаление фильмов из избранного
@@ -39,4 +38,4 @@ Route::delete('/remove_movie_from_favorites', [FavoriteMovieController::class, '
 
 В памяти приложения. Загрузить список всех фильмов и список избранных фильмов пользователя, и среди всех найти те, которых нет в избранном
 (loaderType=inMemory)*/
-Route::get('/unfavorite_movies/{loaderType}', MovieController::class, 'getUnfavoriteMovies');
+Route::get('/unfavorite_movies/{loaderType}', [MovieController::class, 'getUnfavoriteMovies']);

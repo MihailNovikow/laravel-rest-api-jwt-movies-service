@@ -15,13 +15,8 @@ class MovieResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'airport_id' => $request->airport_id,
-            'code_iata' => $request->code_iata,
-            'code_icao' => $request->code_icao,
-            'cargo_offload' => $request->cargo_offload,
-            'cargo_load' => $request->cargo_load,
-            'landing' => $request->landing,
-            'takeoff' => $request->takeoff,
+            'name' => $request->name,
+            'budgetInMillions' => $request->budgetInMillions
         ];
     }
 }

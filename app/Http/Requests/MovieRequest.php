@@ -13,9 +13,8 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'tail' => ['required', 'string'],
-            'date_from' => ['required', 'date_format:yyyy-mm-dd hh:mm'],
-           'date_to' =>  ['required', 'date_format:yyyy-mm-dd hh:mm']
+            'name' => ['required', 'unique:movies', 'string'],
+            'budgetInMillions' => ['required'],
         ];
     }
 }

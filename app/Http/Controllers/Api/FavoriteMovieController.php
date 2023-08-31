@@ -16,8 +16,8 @@ class FavoriteMovieController extends ApiController
      */
     public function index()
     {
-    
-    $movies = Movie::withCount('favoriteMovies')->get();
+         //жадная загрузка
+    $movies = Movie::withCount('favorite')->get();
     if($movies) {
         return response()->json([
             'status' => 'success',
@@ -42,20 +42,20 @@ class FavoriteMovieController extends ApiController
 
           $movie = Movie::find($request->movie_id);
           if($movie) {
-             $movie['favoriteMovie'] = true;
+             $movie['favorite'] = 1;
              $movie->save();
           }
            $user = auth('api')->user();
           $favoriteMovie = new FavoriteMovie();
           $favoriteMovie['user_id'] = $user->id;
            $favoriteMovie['movie_id'] = $request->movie_id;
-        $favoriteMovie = FavoriteMovie::create($request->validated());
-        //$favoriteMovie->save();
+        $favoriteMovie = FavoriteMovie::create($request);
+        
           if($movie && $favoriteMovie) {
             return response()->json([
                 'message'=> 'success',
                 'movie' => $movie,
-                'favoriteMovie' => $favoriteMovie
+                'favorite_movie' => $favoriteMovie
             ]);
     } else {
              return $this->respondNotFound();
@@ -70,19 +70,11 @@ class FavoriteMovieController extends ApiController
      */
     public function destroy(FavoriteMovie $favoriteMovie, Request $request)
     {
-       //update movie and create favoriteMovie
-        // $user = auth('api')->user();
-
           $movie = Movie::findOrFail($request->movie_id);
-          if($movie) {
-           //  $movie['favoriteMovie'] = false;
-           //  $movie->save();
-          }
-        //  $favourite['user_id'] = $user->id;
+          
         $favoriteMovie = FavoriteMovie::findOrFail($request->favoriteMovie_id);
           if($movie && $favoriteMovie) {
 $movie->favoriteMovie()->delete();
-            //$favoriteMovie->delete();
             return response()->json([
                 'message'=> 'success',
                 'movie' => $movie,
